@@ -1,7 +1,9 @@
 from airflow import DAG
-import pendulum
-import detetime
 from airflow.operators.empty import EmptyOperator
+#import detetime
+import pendulum
+
+
 
 with DAG(
     dag_id="dags_corn_task",                                    # 화면에서 보이는 dag 이름
