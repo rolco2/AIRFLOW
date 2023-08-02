@@ -30,7 +30,7 @@ with DAG(
         print('ts:' + kwargs['ts'])
         print('data_interval_start:' + str(kwargs['data_interval_start']))
         print('data_interval_end:'   + str(kwargs['data_interval_end']))
-        print('task_instance:' + str(kwargs['t1']))
+        print('task_instance:' + str(kwargs['ti']))
 
     #task decorator 쓸떄는 함수만 사용해도 가능하다. 
     python_t1 >> python_function2()  
