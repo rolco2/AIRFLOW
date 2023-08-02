@@ -16,5 +16,5 @@ with DAG(
         env ={'START_DATE' : '{{(data_interval_end.in.timezone("Aisa/Seoul") - macros.dateutil.relativedelta.relativedelta(days -19)) | ds }}',
               'END_DATE':    '{{(data_interval_end.in.timezone("Aisa/Seoul") - macros.dateutil.relativedelta.relativedelta(days -14)) | ds }}'
               },
-    bash_command= 'echo "START_dATE : $START_DATE" && echo "END_DATE : $END_DATE"'
+        bash_command= 'echo "START_dATE : $START_DATE" && echo "END_DATE : $END_DATE"'
     )
