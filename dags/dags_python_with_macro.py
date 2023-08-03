@@ -28,12 +28,12 @@ with DAG(
 
     @task(task_id = 'task_direct_calc')
     def get_Datetime_calc(**kwargs):
-        from dateutil.relativedelta import relatlvedelta
+        from dateutil.relativedelta import relativedelta
         
         data_interval_end = kwargs['data_interval_end']
         
-        pre_month_day_first = data_interval_end.in_timezone('Asia/Seoul') + relatlvedelta(months= -1, day =1)
-        pre_month_day_last  = data_interval_end.in_timezone('Asia/Seoul').replace(days = 1) + relatlvedelta(days = -1)
+        pre_month_day_first = data_interval_end.in_timezone('Asia/Seoul') + relativedelta(months= -1, day =1)
+        pre_month_day_last  = data_interval_end.in_timezone('Asia/Seoul').replace(days = 1) + relativedelta(days = -1)
         
         print(pre_month_day_first.strftime('%Y-%m-%d'))
         print(pre_month_day_last.strftime('%Y-%m-%d'))
