@@ -34,19 +34,19 @@ with DAG(
         
     task_a = PythonOperator(
         task_id = 'task_a',
-        python_Callable=common_func,
+        python_callable=common_func,
         op_kwargs={'selected':'A'}    
     )
     
     task_b = PythonOperator(
         task_id = 'task_b',
-        python_Callable=common_func,
+        python_callable=common_func,
         op_kwargs={'selected':'B'}    
     )
     
     task_c = PythonOperator(
         task_id = 'task_c',
-        python_Callable=common_func,
+        python_callable=common_func,
         op_kwargs={'selected':'C'}    
     )
 
