@@ -15,11 +15,12 @@ with DAG(
     @task.branch(task_id = 'python_branch_task')
     def select_random():
         import random
+
         item_lst = ['A','B','C']
         selected_item = random.choice(item_lst)
-        if selected_item == 'A':
+        if selected_item == 'A' :
             return 'task_a'
-        elif selected_item in ['B','C']:
+        elif selected_item == 'B' :
             return ['task_b','task_c']
 
 
@@ -34,13 +35,13 @@ with DAG(
     
     task_b = PythonOperator(
         task_id = 'task_b',
-        python_Callable=common_func,
+        python_callable=common_func,
         op_kwargs={'selected':'B'}    
     )
     
     task_c = PythonOperator(
         task_id = 'task_c',
-        python_Callable=common_func,
+        python_callable=common_func,
         op_kwargs={'selected':'C'}    
     )
 
