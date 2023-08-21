@@ -26,7 +26,6 @@ with DAG(
     python_branch_task = BranchPythonOperator(
         task_id = 'python_branch_task',
         python_callable = select_random
-    
     )
     
     def common_func(**kwargs):
