@@ -4,11 +4,11 @@ from airflow.operators.python import PythonOperator
 from airflow.operators.branch import BaseBranchOperator
 
 with DAG(
-    dag_id = 'dags_base_branch_operator',
+    dag_id='dags_base_branch_operator',
     schedule="10 9 * * *",                                            # 분,시,일,월,요일 스케줄
     start_date = pendulum.datetime(2023, 8, 1, tz="Asia/Seoul"),      # 언제부터 시작할지 결정 / UTC 기준은  9시간 느리다(세계표준시간)
-    schedule = None, 
-    catchup = False 
+    schedule="0 0 * * *",                                       # 분,시,일,월,요일 스케줄
+    catchup=False 
 ) as dag:
     
     class CustomBranchOperator(BaseBranchOperator) :
