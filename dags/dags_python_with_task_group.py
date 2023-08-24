@@ -15,6 +15,7 @@ with DAG(
 ) as dag:
 
     def inner_func(**kwargs):
+        print('aaaaaaaaaaaaaa')
         msg = kwargs.get('msg') or ''
         print(msg)
 
@@ -30,7 +31,7 @@ with DAG(
             task_id = 'inner_function2',
             python_callable=inner_func,
             op_kwargs = {'mag' : '첫 번쨰 TaskGroup내 두번째 task 입니다.'}   
-            print('aaaaaaaaaaaaaa')
+            
         )
         
         inner_func1() >> inner_function2
