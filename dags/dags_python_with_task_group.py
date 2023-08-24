@@ -30,7 +30,7 @@ with DAG(
         inner_function2 = PythonOperator(
             task_id = 'inner_function2',
             python_callable=inner_func,
-            op_kwargs = {'mag' : '첫 번쨰 TaskGroup내 두번째 task 입니다.'}   
+            op_kwargs = {'msg' : '첫 번쨰 TaskGroup내 두번째 task 입니다.'}   
             
         )
         
