@@ -48,3 +48,5 @@ with DAG(
 		)
 		
         inner_func1() >> inner_function2
+
+    group_1() >> group_2
