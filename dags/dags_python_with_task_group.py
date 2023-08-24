@@ -2,8 +2,7 @@ from airflow import DAG
 import pendulum
 from airflow.operators.python import PythonOperator
 from airflow.decorators import task
-from airflow.decorators import task_group                          #group 사용
-from airflow.utils.task_group import TaskGroup
+from airflow.utils.task_group import task_group
 
 with DAG(
     dag_id="dags_python_with_task_group",                           # 화면에서 보이는 dag 이름
