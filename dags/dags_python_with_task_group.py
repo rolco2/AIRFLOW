@@ -2,7 +2,8 @@ from airflow import DAG
 import pendulum
 from airflow.operators.python import PythonOperator
 from airflow.decorators import task
-from airflow.utils.task_group import task_group
+from airflow.decorators import task_group                          #group 사용
+from airflow.utils.task_group import TaskGroup
 
 with DAG(
     dag_id="dags_python_with_task_group",                           # 화면에서 보이는 dag 이름
@@ -29,7 +30,7 @@ with DAG(
             task_id = 'inner_function2',
             python_callable=inner_func,
             op_kwargs = {'mag' : '첫 번쨰 TaskGroup내 두번째 task 입니다.'}   
-          )
+        )
         
         inner_func1() >> inner_function2
     
