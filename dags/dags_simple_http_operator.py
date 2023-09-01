@@ -33,7 +33,7 @@ with DAG(
         from pprint import pprint
         
         ti = kwargs['ti'] 
-        rslt = ti.xcom_pull(task_ids='tb_Cycle_station_info')
+        rslt = ti.xcom_pull(task_ids='tb_cycle_station_info')
         
         pprint(json.loads(rslt))
         
