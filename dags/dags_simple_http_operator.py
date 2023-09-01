@@ -20,7 +20,7 @@ with DAG(
       # endpoint = '534b734a62677977343351564a5647/json/tbCycleStationInfo/1/10/',
       # 인증키값을 직접 적으면 여러 문제가 발생할 수 있음으로 variable로 변경해준다. 
        endpoint = '{{var.value.apikey_openapi_seoul_go_kr}}/json/tbCycleStationInfo/1/10/', #airflow에 variable 사용하여 템플릿 이용해 작성
-       method = 'GET'
+       method = 'GET',
        headers = {'Content-Type': 'application/json',
                   'charset' : 'utf-8',
                   'Accept'  : '*/*'
