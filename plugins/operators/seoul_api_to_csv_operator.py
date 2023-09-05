@@ -55,13 +55,14 @@ class SeoulApitoCsvOperator(BaseOperator):
 
         if self.base_dt is not None:
             request_url = f'{base_url}/{start_row}/{end_row}/{self.base_dt}'
+        
+        print(request_url)
+
         response = requests.get(request_url, headers)                            #http에 get 요청
         contents = json.loads(response.text)
 
         key_nm = list(contents.key())[0]
         row_data = contents.get(key_nm).get('row')
-
-        print(row_data)
 
         row_df = pd.DataFrame(row_data)
 
