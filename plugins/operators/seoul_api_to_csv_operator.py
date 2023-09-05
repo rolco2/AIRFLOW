@@ -53,8 +53,8 @@ class SeoulApitoCsvOperator(BaseOperator):
         print(request_url)
 
 
-        if self.base_dt is not None:
-            request_url = f'{base_url}/{start_row}/{end_row}/{self.base_dt}'
+#        if self.base_dt is not None:
+#            request_url = f'{base_url}/{start_row}/{end_row}/{self.base_dt}'
         
         print(request_url)
 
