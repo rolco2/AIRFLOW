@@ -41,7 +41,7 @@ class SeoulApitoCsvOperator(BaseOperator):
         print('cccccccccccccccc')
         print(self.path)
         print(self.file_name)
-        total_row_df.to_csv(self.path + '/' + self.file_name, encoding = 'utf-8', index=False)
+        total_row_df.to_csv(self.path + '/' + self.file_name +'.csv', encoding = 'utf-8', index=False)
 
     def _call_api(self, base_url, start_row, end_row):
         import requests
