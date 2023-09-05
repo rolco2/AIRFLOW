@@ -64,7 +64,7 @@ class SeoulApitoCsvOperator(BaseOperator):
         print(response)
         print(contents)
 
-        key_nm = list(contents.key())[0]
+        key_nm = list(contents.keys())[0]
         row_data = contents.get(key_nm).get('row')
 
         row_df = pd.DataFrame(row_data)
