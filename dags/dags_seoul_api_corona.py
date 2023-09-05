@@ -25,5 +25,5 @@ with DAG(
         file_name = 'tvCorona19VaccinestatNew.csv'
     )
 
-    tv_corona19_vaccine_stat_new
-    #tb_corona19_count_status >> tv_corona19_vaccine_stat_new
+    #tv_corona19_vaccine_stat_new
+    tb_corona19_count_status >> tv_corona19_vaccine_stat_new
