@@ -45,7 +45,6 @@ class SeoulApitoCsvOperator(BaseOperator):
         import requests
         import json
         
-        print('call_aaaaaaaaaaaaa')
         headers = {'content-Type' : 'application/json',
                    'charset' : 'utf-8',
                    'Accept' : '*/*'                   
@@ -61,6 +60,9 @@ class SeoulApitoCsvOperator(BaseOperator):
 
         key_nm = list(contents.key())[0]
         row_data = contents.get(key_nm).get('row')
+
+        print(row_data)
+
         row_df = pd.DataFrame(row_data)
 
         return row_df
