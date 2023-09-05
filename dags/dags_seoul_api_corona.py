@@ -20,9 +20,9 @@ with DAG(
     ''' 서울시 코로나19 백신 예방접종 현황 '''
     tv_corona19_vaccine_stat_new = SeoulApitoCsvOperator(
         task_id ='tv_corona19_vaccine_stat_new',
-        dataset_nm = 'TvCorona19vaccinestatNew',
+        dataset_nm = 'tvCorona19VaccinestatNew',
         path = '/opt/airflow/files/tvCorona19vaccinestatNew/{{data_interval_end.in_timezone("Asia/Seoul") | ds_nodash}}',
-        file_name = 'TvCorona19vaccinestatNew.csv'
+        file_name = 'tvCorona19VaccinestatNew.csv'
     )
 
-    tb_corona19_count_status >> tv_corona19_vaccine_stat_new
+    tb_corona19_count_status #>> tv_corona19_vaccine_stat_new
