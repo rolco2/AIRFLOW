@@ -7,7 +7,7 @@ class SeoulApitoCsvOperator(BaseOperator):
 
     def __init__(self, dataset_nm, path, file_name, base_dt = None, **kwargs):
         super().__init__(**kwargs)
-        self.http_conn_id = 'openapi.seoul.go.kr'
+        self.http_conn_id = 'openAPI.seoul.go.kr'
         self.path = path
         self.file_name = file_name
         self.endpoint = '{{var.value.apikey_openapi_seoul_go_kr}}/json/' + dataset_nm
