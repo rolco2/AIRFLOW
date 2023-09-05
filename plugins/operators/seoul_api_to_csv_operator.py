@@ -58,9 +58,10 @@ class SeoulApitoCsvOperator(BaseOperator):
         
         print(request_url)
 
-        response = requests.get(request_url, headers)                            #http에 get 요청
-        contents = json.loads(response.text)
+        response = requests.get(request_url, headers)     #http에 get 요청
+        contents = json.loads(response.text)             #딕셔너리로 변환
 
+        print(response)
         print(contents)
 
         key_nm = list(contents.key())[0]
