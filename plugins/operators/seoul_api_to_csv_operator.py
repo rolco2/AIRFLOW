@@ -15,6 +15,7 @@ class SeoulApitoCsvOperator(BaseOperator):
         
     def execute(self, context):
         import os
+        from pprint import pprint
 
         connection = BaseHook.get_connection(self.http_conn_id)
         self.base_url = f'http://{connection.host}:{connection.port}/{self.endpoint}'
@@ -25,7 +26,9 @@ class SeoulApitoCsvOperator(BaseOperator):
         while True :
             self.log.info(f'시작 : {start_row}')
             self.log.info(f'끝 : {end_row}')
+            print('a')
             row_df = self._call_api(self.base_url, start_row, end_row)
+            print('b')
             total_row_df = pd.concat([total_row_df, row_df])
             if len(row_df) < 1000 :
                 break
