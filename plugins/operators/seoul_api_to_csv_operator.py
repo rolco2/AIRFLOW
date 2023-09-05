@@ -26,9 +26,9 @@ class SeoulApitoCsvOperator(BaseOperator):
         while True :
             self.log.info(f'시작 : {start_row}')
             self.log.info(f'끝 : {end_row}')
-            print('a')
+            print('aaaaaaaaaaaaaaa')
             row_df = self._call_api(self.base_url, start_row, end_row)
-            print('b')
+            print('bbbbbbbbbbbbbbbbbb')
             total_row_df = pd.concat([total_row_df, row_df])
             if len(row_df) < 1000 :
                 break
@@ -44,7 +44,8 @@ class SeoulApitoCsvOperator(BaseOperator):
     def _call_api(self, base_url, start_row, end_row):
         import requests
         import json
-
+        
+        print('call_aaaaaaaaaaaaa')
         headers = {'content-Type' : 'application/json',
                    'charset' : 'utf-8',
                    'Accept' : '*/*'                   
