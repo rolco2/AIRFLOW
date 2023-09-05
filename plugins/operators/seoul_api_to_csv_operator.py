@@ -49,7 +49,7 @@ class SeoulApitoCsvOperator(BaseOperator):
                    'charset' : 'utf-8',
                    'Accept' : '*/*'                   
                    }
-        request_url = f'{base_url} / {start_row}/{end_row}/'                     #API에서 가져오는 형식
+        request_url = f'{base_url}/{start_row}/{end_row}/'                     #API에서 가져오는 형식
         print(request_url)
 
 
