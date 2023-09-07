@@ -11,6 +11,7 @@ with DAG(
 ) as dag:
 
     def insrt_postgres(ip, port, dbname, user, passwd, **kwargs):
+        print("aaaaaaaaa")
         import psycopg2
         from contextlib import closing
         with closing(psycopg2.connect(host=ip, dbname=dbname, user=user, password=passwd, port=int(port))) as conn: 
@@ -26,7 +27,7 @@ with DAG(
                 
     insert_postgres = PythonOperator(
         task_id = 'insert_postgres',
-        python_callable = insrt_postgres,
+        python_callable = insrt_postgres,        
         op_args= ['127.28.0.3','5432','parkhj','parkhj','parkhj']
     )
 
