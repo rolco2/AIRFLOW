@@ -15,6 +15,7 @@ with DAG(
         import psycopg2
         from contextlib import closing
         with closing(psycopg2.connect(host=ip, dbname=dbname, user=user, password=passwd, port=int(port))) as conn: 
+            print("bbbbbbbbbb")
             with closing(conn.cursor()) as cursor:  # with closing 은 cursor.close() 나 conn.close()를 생략할 수 있다
                 dag_id = kwargs.get('ti').dag_id    # 'ti'는 task instance 로 이 정보들을 가져올수 있다.
                 task_id = kwargs.get('ti').task_id
