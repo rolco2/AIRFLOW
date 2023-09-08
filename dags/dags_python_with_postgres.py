@@ -14,6 +14,7 @@ with DAG(
         print("aaaaaaaaa")
         import psycopg2
         from contextlib import closing
+
         with closing(psycopg2.connect(host=ip, dbname=dbname, user=user, password=passwd, port=int(port))) as conn: 
             print("bbbbbbbbbb")
             with closing(conn.cursor()) as cursor:  # with closing 은 cursor.close() 나 conn.close()를 생략할 수 있다
@@ -29,7 +30,8 @@ with DAG(
     insert_postgres = PythonOperator(
         task_id = 'insert_postgres',
         python_callable = insrt_postgres,        
-        op_args= ['127.28.0.3','5432','parkhj','parkhj','parkhj']
+        #op_args= ['127.28.0.3','5432','parkhj','parkhj','parkhj']
+        op_args= ['3.0.28.127','5432','parkhj','parkhj','parkhj']
     )
 
     insrt_postgres
