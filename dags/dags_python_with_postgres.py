@@ -2,7 +2,7 @@ from airflow import DAG
 from airflow.operators.python import PythonOperator
 import pendulum
 
-
+# db에 연결이 안됨 추후 확인 해야함
 with DAG(
     dag_id = 'dags_python_with_postgres',
     start_date=pendulum.datetime(2023, 8, 1, tz="Asia/Seoul"),      # 언제부터 시작할지 결정 / UTC 기준은  9시간 느리다(세계표준시간)
@@ -30,8 +30,7 @@ with DAG(
     insert_postgres = PythonOperator(
         task_id = 'insert_postgres',
         python_callable = insrt_postgres,        
-        #op_args= ['127.28.0.3','5432','parkhj','parkhj','parkhj']
-        op_args= ['3.0.28.127','5432','parkhj','parkhj','parkhj']
+        op_args= ['127.28.0.3','5432','parkhj','parkhj','parkhj']
     )
 
     insrt_postgres
