@@ -13,7 +13,7 @@ with DAG(
         from airflow.providers.postgres.hooks.postgres import PostgresHook
         from contextlib import closing
         
-        postgres_hook = PostgresHook(postgres_conn_id)
+        postgres_hook = PostgresHook(postgres_conn_id)            #함수로 된 db 커넥션 정보를 hook에 넣어준다.
         with closing(postgres_hook.get_conn()) as conn:
             with closing(conn.cursor()) as cursor:
                 dag_id = kwargs.get('ti').dag_id
