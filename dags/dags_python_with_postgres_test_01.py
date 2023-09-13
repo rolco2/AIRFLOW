@@ -4,7 +4,7 @@ import pendulum
 
 # db에 연결이 안됨 추후 확인 해야함
 with DAG(
-    dag_id = 'dags_python_with_postgres',
+    dag_id = 'dags_python_with_postgres_test_01',
     start_date=pendulum.datetime(2023, 8, 1, tz="Asia/Seoul"),      # 언제부터 시작할지 결정 / UTC 기준은  9시간 느리다(세계표준시간)
     schedule=None,                                                  # 분,시,일,월,요일 스케줄
     catchup=False   
