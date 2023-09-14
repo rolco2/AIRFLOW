@@ -7,7 +7,7 @@ class CustomPostgresHook(BaseHook):
     def __init__(self, postgres_conn_id, **kwargs):
         self.postgres_conn_id = postgres_conn_id
 
-    def get_conn(self):
+    def get_conn(self):  # 접속정보 재정의 / airflow에 정의한 connection 정보를 가져 온다. 
         airflow_conn = BaseHook.get_connection(self.postgres_conn_id)
         # Hook을 통해 아래 값을 가져 올 수 있다. 
         self.host = airflow_conn.host           
@@ -15,7 +15,7 @@ class CustomPostgresHook(BaseHook):
         self.password = airflow_conn.password
         self.dbname = airflow_conn.schema
         self.port = airflow_conn.port
-
+        # postgres에 접속할 수 있는 정보를 정의 
         self.postgres_conn = psycopg2.connect(host=self.host, user=self.user, password=self.password, dbname=self.dbname, port=self.port)
         return self.postgres_conn
 
