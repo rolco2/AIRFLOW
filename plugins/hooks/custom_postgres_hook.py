@@ -22,6 +22,7 @@ class CustomPostgresHook(BaseHook):
     def bulk_load(self, table_name, file_name, delimiter: str, is_header: bool, is_replace: bool):
         from sqlalchemy import create_engine
 
+        print('aaaaaaaaaaaaaaaaaaaaaaaaaa')
         self.log.info('적재 대상파일:' + file_name)
         self.log.info('테이블 :' + table_name)
         self.get_conn()
