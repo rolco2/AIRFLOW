@@ -40,6 +40,7 @@ class CustomPostgresHook(BaseHook):
         self.log.info('적재 건수:' + str(len(file_df)))
         uri = f'postgresql://{self.user}:{self.password}@{self.host}/{self.dbname}'
         engine = create_engine(uri)
+        #해당 테이블이 없을 경우 테이블을 생성한다. (컬럼은 파일에서 확인 후 스스로 생성)
         file_df.to_sql(name=table_name,
                             con=engine,
                             schema='public',
