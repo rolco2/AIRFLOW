@@ -25,6 +25,7 @@ with DAG(
         last_date = last_dt[:10]                    
         last_date = last_date.replace('.', '-').replace('/', '-')
         
+        #try 부분은 last_date의 형식 체크를 위해 만듬
         try:
             pendulum.from_format(last_date,'YYYY-MM-DD')
         except:
