@@ -6,7 +6,7 @@ from airflow.operators.python import BranchPythonOperator
 
 with DAG(
     dag_id="dags_branch_python_operator",                           # 화면에서 보이는 dag 이름
-    schedule="10 9 * * *",                                          # 분,시,일,월,요일 스케줄
+    schedule="0 1 * * *",                                          # 분,시,일,월,요일 스케줄
     start_date=pendulum.datetime(2023, 8, 1, tz="Asia/Seoul"),      # 언제부터 시작할지 결정 / UTC 기준은  9시간 느리다(세계표준시간)
 #    start_date = datetime.date(2023, 3, 1),
 #    schedule=None,
