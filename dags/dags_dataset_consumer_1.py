@@ -15,5 +15,5 @@ with DAG(
     
     bash_task = BashOperator(
         task_id = 'bash_task',
-        bash_command='echo {{ti.run_id}} && echo"producer_1 dl 이 완료되면 수행"'
+        bash_command='echo {{ti.run_id}} && echo "producer_1 dl 이 완료되면 수행"'
     )
