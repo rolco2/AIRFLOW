@@ -1,0 +1,105 @@
+Snowflake 데이터베이스 생성 및 관리
+  - 데이터 수명 주기의 모든 스테이지에서 데이터에 액세스하고 복수할 수 있또록 설계
+  - 인적오류, 악의적인 행위, 소프트웨어 나 하드웨어 오류에 대응에 데이터 보호 CDP에 의해 가능
+  - CDP는 TIME Travle 및 안전장치이다.
+  - 임시 데이터베이스는 최대 1일 데이터 보존 기간이 있다
+  - 안전장치 데이터는 Snowflake 직원만 복구 가능
+  - 기본 sql 
+    * CREATE DATABASE, ALTER DATABASE, DROP DATABASE, SHOW DATABASES
+  - 대부분 ACCOUNTADMIN 이나 SECURITYADMIN 역할을 사용하는게 좋음
+ 
+* 기존 데이터 베이스를 덮어쓰지 않도록 명령어 쓰기를 추천함
+  - CREATE OR REPLACE 
+  - CREATE DATABASE DEM03B_DB IF NOT EXISTS
+
+* 데이터베이스 정보 확인
+  - USE ROLE ACCOUNTADMMIN;
+    SHOW DATABASES;
+
+* 데이터베이스 보존기간 변경 (10일로 변경, 최대 90일가능)
+  - USER ROLE SYSADMIN;
+    ALTER DATABASE DEMO3B_DB
+	SET DATA_RETENTION_TIME_IN_DAYS=10;
+
+* 임시 데이터베이스에 테이블 생성 (차이 없음..)
+  - USE ROLE SYSADMIN; 
+    CREATE OR REPLACE TABLE DEM03B.PUBLIC.SUMMARY
+	(  CASH_AMT        NUMBER
+	 , RECEIVABLES_AMT NUMBER
+	 , CUSTOMER_AMT    NUMBER
+	 )
+	 
+* Snowflake 스키마 생성 및 관리 
+  - 스키마 생성 
+   1)  USE ROLE SYSADMIN;
+	   USE DATABASE DEM03A_DB;
+	   CREATE OR REPLACE SCHEMA BANKING;
+	 
+   2) USE ROLE SYSADMIN;
+      CREATE OR REPLACE SCHEMA DEM03A_DB.BANKING;
+	  
+  - 관리 엑세스로스키마 만들기 
+    USE ROLE SYSADMIN; USE DATABASE DEM03A_DB;
+	CREATE OR REPLACE SCHEMA MSCHEMA WITH MANAGED ACCESS;
+	  
+  - 스키마 확인 (새 스키마의 보유 시간 알 수 있다 / 기본 10일)
+    SHOW SCHEMAS 
+	
+  - 스키마 보유 기간 설정 
+    USE ROLE SYSADMIN;
+	ALTER SCHEMA DEM03A_DB.BANKING 
+	SET DATA_RETENTION_TIME_IN_DAYS=1 ;
+	
+* INFORMATION_SCHEMA 계정 뷰
+  1) APPLICABLE_ROLES 
+     - 각 역할권한 부여에 대해 하나의 행을 표시 
+  2) DATABASES 
+     - 계정에 정의된 각 데이터베이스에 대해 하나의 행을 표시 
+  3) ENABLED_ROLES
+     - 세션에서 현재 활성화된 각 역할에 대해 하나의 행을 표시합니다. 
+  4) INFORMATION_SCHEMA_CATALOG_NAME 
+     - INFORMATION_SCHEMA가 있는 데이터베이스의 이름을 표시합니다. 
+  5) LOAD_HISTORY
+     - COPY INTO 명령어를 사용하여 테이블에 로딩된 각 파일에 대해 하나의 행을 표시하고 
+	   SNOWPIPE를 사용하여 로딩된 데이터를 제외하고 지난 14일 동안 로딩된 모든 데이터에 
+	   대한 이력 반환
+  6) REPLICATION_DATABASES
+     -  각 기본 및 보조 데이터베이스에 대해 하나의 행을 표시 
+
+* INFORMATION_SCHEMA 데이터 베이스 뷰 
+  1) COLUMNS
+     - 데이터베이스에 정의된 테이블의 각 열에 대해 하나의 행을 표시 
+  2) EXTERNAL_TABLES 
+     - 지정된 데이터베이스의 각 외부 테이블에 대해 하나의 행을 표시
+  3) FILE_FORMATS 
+     - 데이터베이스에 정의된 각 ㅍ일 포맷에 대해 하나의 행을 표시
+  4) FUNCTIONS
+     - 데이터베이스에 정의된 각 UDF또는 외부 함수에 대해 하나의 행을 표시
+  5) OBJECT_PRIVILEGES
+     - 계정에 정의된 모든 객체에 부여된 각 엑세스 권한에 대해 하나의 행으로 표시 
+  6) PIPES 
+     - 데이터베이스에 정의된 각 파이프에 대해 정의 
+  7) PROCEDURES
+     - 각 저장 프로시저에 대해 하나의 행으로 표시
+  8) REFERENTIAL_CONSTRAINTS
+     - 정의된 각 참조 무결성 제약에 대해 표시 
+  9) SCHEMATA 
+     - 데이터베이스의 각 스키마에 대해 표시 
+  10) SEQUENCES
+     - 각 시퀀스에 대해 표시 
+  11) STAGES
+     - 각 스테이지에 대해 표시
+  12) TABLE_CONSTRAINTS
+     - 각 테이블에 대해 정의된 참조 무결성 제약조건에 대해 표시 
+  13) TABLE_STORAGE_METRICS
+     - 테이블 메타데이터 포함하여 각 테이블에 과금되는 스토리지 유형 수르 ㄹ표시
+  14) TABLES 
+     - 각 테이블 및 뷰에 대해 표시 
+  15) USAGE_PRIVILEGES
+     - 데이터베이스의 시퀀스에 대해 정의된 각 권한에 대해 표시
+  16) VIEW 
+     - 뷰에 대해 표시 
+	 - 명령어 
+	    SHOW SCHEMAS IN DATABASE SNOWFLAKE_SAMPLE_DATA ; 
+		SELECT * FROM SNOWFLAKE_SAMPLE_DATA.INFORMATION_SCHEMA.SCHEMATA; 
+	    # INFORMATION_SCHEMA를 이용해 조회하는게 더 많은 정보가 포함되어 있다.
