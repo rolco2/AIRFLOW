@@ -1,0 +1,48 @@
+CREATE OR REPLACE PROCEDURE P_DATE_INSERT(CAL_DAY INT)
+RETURNS INTEGER NOT NULL
+LANGUAGE SQL
+AS
+$$
+DECLARE    
+    DAY INT ;
+    CNT INT ;
+BEGIN 
+ --    ALTER SESSION SET TIMEZONE = 'Asia/Seoul'; 
+     DAY := CAL_DAY;
+
+    DROP  TABLE IF EXISTS T_DT_CAL;
+    CREATE TEMP TABLE T_DT_CAL
+    AS
+    SELECT  CURRENT_DATE         AS CUR_DT 
+         ,  CURRENT_DATE - :DAY  AS BFR_DT
+         ,  CURRENT_DATE + :DAY  AS AFR_DT
+    ;    
+        
+     INSERT INTO DATE_TABLE
+     (
+         DT
+      ,  BFR_DT
+      ,  AFR_DT
+      ,  LOAD_DT
+      ,  LOAD_DTS
+     )
+     SELECT CUR_DT
+          , BFR_DT
+          , AFR_DT
+          , CURRENT_DATE()
+          , CURRENT_TIMESTAMP()
+    FROM  T_DT_CAL ;   
+    
+    RETURN CNT;
+    
+END ;
+$$
+;
+
+ CALL P_DATE_INSERT(3);
+DELETE FROM DATE_TABLE;
+SELECT *
+FROM   DATE_TABLE;
+
+
+ 
