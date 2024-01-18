@@ -1,0 +1,123 @@
+CREATE OR REPLACE TABLE LOG_PROC_HIST
+(
+    PROC_NM   VARCHAR
+,   LOAD_CNT    INT
+,   LOAD_DTS    DATETIME
+);
+
+CREATE OR REPLACE TABLE ERR_PROC_HIST
+(
+   PROC_NM   VARCHAR
+,  TAB_NM    VARCHAR
+,  ERRM      VARCHAR
+,  LOAD_DTS  DATETIME
+)
+
+CREATE OR REPLACE PROCEDURE P_DATE_INSERT(CAL_DAY INT)
+RETURNS INTEGER NOT NULL
+LANGUAGE SQL
+AS
+$$
+DECLARE
+    DAY INT ;
+    CNT INT ;
+    T_NAME VARCHAR;
+    P_NAME VARCHAR;
+    RTN    VARCHAR;
+BEGIN 
+--     ALTER SESSION SET TIMEZONE = 'Asia/Seoul';
+     P_NAME := 'P_DATE_INSERT';
+     
+     DAY := 1;
+
+     T_NAME := 'T_DT_CAL';
+     
+     DROP  TABLE IF EXISTS T_DT_CAL;
+     CREATE TEMP TABLE T_DT_CAL
+     AS
+     SELECT  CURRENT_DATE        AS CUR_DT 
+          ,  CURRENT_DATE - :DAY  AS BFR_DT
+          ,  CURRENT_DATE + :DAY  AS AFR_DT
+     ;
+
+     DAY := 2;
+
+         
+     T_NAME := 'T_DT_CAL2';
+  
+     DROP  TABLE IF EXISTS T_DT_CAL2;
+     CREATE TEMP TABLE T_DT_CAL2
+     AS
+     SELECT  CURRENT_DATE         AS CUR_DT 
+          ,  CURRENT_DATE - :DAY  AS BFR_DT
+          ,  CURRENT_DATE + :DAY  AS AFR_DT
+     ;         
+    
+     T_NAME := 'T_DT_CAL_TOT';
+
+     DROP  TABLE IF EXISTS T_DT_CAL_TOT;     
+     CREATE TEMP TABLE T_DT_CAL_TOT
+     AS
+     SELECT CUR_DT
+          , BFR_DT
+          , AFR_DT
+          , CURRENT_DATE()      AS LOAD_DT
+          , CURRENT_TIMESTAMP() AS LOAD_DTS
+     FROM  T_DT_CAL 
+     UNION ALL 
+     SELECT CUR_DT
+          , BFR_DT
+          , AFR_DT
+          , CURRENT_DATE()
+          , CURRENT_TIMESTAMP()
+     FROM  T_DT_CAL2
+     ;
+
+   T_NAME := 'INSERT_DATE_TABLE';
+   INSERT INTO DATE_TABLE
+     (
+         DT
+      ,  BFR_DT
+      ,  AFR_DT
+      ,  LOAD_DT
+      ,  LOAD_DTS
+     )
+    SELECT CUR_DT
+         , BFR_DT
+         , AFR_DT
+         , LOAD_DT
+         , LOAD_DTS
+    FROM  T_DT_CAL_TOT ;
+   
+   SELECT COUNT(*) 
+   INTO :CNT
+   FROM T_DT_CAL_TOT;
+
+   INSERT INTO LOG_PROC_HIST VALUES(:P_NAME,  :CNT, CURRENT_TIMESTAMP);
+   
+   RETURN :CNT;  
+
+   EXCEPTION
+   WHEN OTHER THEN
+     LET LINE := SQLCODE || ': ' || SQLERRM;
+     INSERT INTO ERR_PROC_HIST VALUES (:P_NAME, :T_NAME,:LINE,CURRENT_TIMESTAMP);
+     RAISE; -- Raise the same exception that you are handling.
+
+END;
+$$
+
+;
+ 
+ CALL P_DATE_INSERT(5);
+DELETE FROM DATE_TABLE;
+SELECT * FROM   DATE_TABLE;
+
+DELETE FROM ERR_PROC_HIST;
+
+SELECT * FROM ERR_PROC_HIST;
+SELECT * FROM LOG_PROC_HIST;
+
+SELECT SYSDATE(), CURRENT_TIMESTAMP();
+
+
+ 
