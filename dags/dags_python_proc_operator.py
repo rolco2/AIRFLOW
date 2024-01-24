@@ -26,7 +26,7 @@ with DAG(
 ) as dag:
 
 
-query1 = "select 1"
+    query1 = "select 1"
 
 
 #def count1(**context):
