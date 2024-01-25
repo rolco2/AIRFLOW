@@ -38,7 +38,7 @@ with DAG(
     query1_exec = SnowflakeOperator(
         task_id="snowfalke_task1",
         sql=query1,
-        snowflake_conn_id="snowflake_conn",
+        snowflake_conn_id="snowflake_conn"
     )
 
 #    count_query = PythonOperator(task_id="count_query", python_callable=count1)
