@@ -19,7 +19,7 @@ args = {"owner": "Airflow", "start_date": datetime(2021,3,22,17,15)}
 #)
 
 with DAG(
-    dag_id = 'dags_python_with_postgres',
+    dag_id = 'dags_python_with_snoflake',
     start_date=pendulum.datetime(2023, 8, 1, tz="Asia/Seoul"),      # 언제부터 시작할지 결정 / UTC 기준은  9시간 느리다(세계표준시간)
     schedule=None,                                                  # 분,시,일,월,요일 스케줄
     catchup=False   
