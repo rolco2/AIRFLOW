@@ -39,7 +39,7 @@ with DAG(
 
     query1_exec = SnowflakeOperator(
         task_id="snowfalke_task1",
-        sql= query1
+        sql= query1,
         snowflake_conn_id="snowflake_conn"
     )
 
