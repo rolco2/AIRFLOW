@@ -12,6 +12,8 @@ logger = logging.getLogger(__name__)
 
 args = {"owner": "Airflow", "start_date": datetime(2021,3,22,17,15)}
 
+now = datetime.now()
+
 #dag = DAG(
 #    dag_id="snowflake_connector3", 
 #    default_args=args, 
@@ -26,7 +28,7 @@ with DAG(
 ) as dag:
 
 
-    query1 = "select 1"
+    query1 = "INSERT INTO TEST_DB.PUBLIC.ERR_PROC_HIST  VALUES ('PARK', 'TB', 'EER'," + now + ");"
 
 
 #def count1(**context):
@@ -37,7 +39,7 @@ with DAG(
 
     query1_exec = SnowflakeOperator(
         task_id="snowfalke_task1",
-        sql=query1,
+        sql= query1
         snowflake_conn_id="snowflake_conn"
     )
 
