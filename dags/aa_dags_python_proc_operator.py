@@ -28,7 +28,7 @@ with DAG(
 ) as dag:
 
 
-    query1 = "INSERT INTO TEST_DB.PUBLIC.ERR_PROC_HIST  VALUES ('PARK', 'TB', 'EER'," + now + ");"
+    query1 = "INSERT INTO TEST_DB.PUBLIC.ERR_PROC_HIST  VALUES ('PARK', 'TB', 'EER', null);"
 
 
 #def count1(**context):
